@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="jezyki_obce" type="jezyki_obce"/>
+
+    <xs:complexType name="jezyki_obce">
+        <xs:sequence>
+            <xs:element name="jezyk" type="jezyk"  maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="jezyk">
+        <xs:sequence>
+            <xs:element name="rodzina" type="rodzina"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="Id" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="rodzina">
+        <xs:sequence>
+            <xs:element name="grupa" type="grupa"/>
+        </xs:sequence>
+        <xs:attribute name="nazwa_rodziny" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="grupa">
+        <xs:sequence>
+            <xs:element name="zespol" type="zespol"/>
+        </xs:sequence>
+        <xs:attribute name="nazwa_grupy" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="zespol" mixed="true">
+        <xs:all>
+            <xs:element name="nazwa" type="xs:string"/>
+        </xs:all>
+        <xs:attribute name="nazwa_zespolu" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="Id">
+        <xs:restriction base="xs:int">
+            <xs:pattern value="[0-9]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
