@@ -4,10 +4,13 @@
 
     <xs:element name="jezyki_obce" type="jezyki_obce"/>
 
-    <xs:complexType name="jezyki_obce">
+    <xs:complexType name="jezyki_obce"><!--GLOBALNE-->
         <xs:sequence>
-            <xs:element name="jezyk" type="jezyk"  maxOccurs="unbounded"/>
+            <xs:element name="jezyk" type="jezyk" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="link" type="link" minOccurs="3" maxOccurs="unbounded"/>
+            <xs:element name="zdjecie" type="zdjecie" minOccurs="3" maxOccurs="unbounded"/>
         </xs:sequence>
+        <xs:attribute name="moje_hobby" type="Moje_hobby"/>
     </xs:complexType>
 
     <xs:complexType name="jezyk">
@@ -17,7 +20,16 @@
         <xs:attribute name="id" type="Id" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="rodzina">
+    <xs:complexType name="link">
+        <xs:attributeGroup ref="GrupaURL"/>
+    </xs:complexType>
+
+    <xs:complexType name="zdjecie">
+        <xs:attributeGroup ref="GrupaURL"/>
+        <xs:attribute name="rozszerzenie" type="Rozszerzenie" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="rodzina"><!-- Podelementy jezyk -->
         <xs:sequence>
             <xs:element name="grupa" type="grupa"/>
         </xs:sequence>
@@ -33,14 +45,59 @@
 
     <xs:complexType name="zespol" mixed="true">
         <xs:all>
-            <xs:element name="nazwa" type="xs:string"/>
+            <xs:element name="nazwa_jezyka" type="xs:string"/>
+            <xs:element name="liczba_uzytkownikow" type="liczba_uzytkownikow"/>
+            <xs:element name="alfabet" type="alfabet"/>
         </xs:all>
-        <xs:attribute name="nazwa_zespolu" type="xs:string" use="required"/>
+        <xs:attribute name="nazwa_zespolu" type="xs:string"/>
     </xs:complexType>
 
+    <xs:complexType name="liczba_uzytkownikow">
+        <xs:sequence>
+            <xs:element name="ilosc" type="xs:decimal"/>
+        </xs:sequence>
+        <xs:attribute name="liczba" type="Liczba" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="alfabet">
+        <xs:sequence>
+            <xs:element name="alfabet_nazwa" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="ilosc_liter" type="xs:integer" use="required"/>
+    </xs:complexType>
+
+    <xs:attributeGroup name="GrupaURL"><!-- scierzka -->
+        <xs:attribute name="url" type="xs:string" use="required"/>
+        <xs:attribute name="tresc" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:simpleType name="Moje_hobby">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:simpleType name="Id">
-        <xs:restriction base="xs:int">
-            <xs:pattern value="[0-9]*"/>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]{1}[0-9]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Liczba">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="tysiąc"/>
+            <xs:enumeration value="milion"/>
+            <xs:enumeration value="miliard"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Rozszerzenie">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="JPG"/>
+            <xs:enumeration value="PNG"/>
+            <xs:enumeration value="JPEG"/>
+            <xs:enumeration value="GIF"/>
+            <xs:enumeration value="JPEG"/>
         </xs:restriction>
     </xs:simpleType>
 
