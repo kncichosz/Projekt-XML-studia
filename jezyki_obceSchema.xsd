@@ -2,82 +2,118 @@
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:element name="jezyki_obce" type="jezyki_obce"/>
+    <xs:element name="jezyki_obce" type="jezyki_obceType"/>
+    <xs:attribute name="id" type="IdType"/>
 
-    <xs:complexType name="jezyki_obce"><!--GLOBALNE-->
+    <xs:complexType name="jezyki_obceType">
         <xs:sequence>
-            <xs:element name="jezyk" type="jezyk" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="link" type="link" minOccurs="3" maxOccurs="unbounded"/>
-            <xs:element name="zdjecie" type="zdjecie" minOccurs="3" maxOccurs="unbounded"/>
+            <xs:element name="jezyk" type="jezykType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="link" type="linkType" minOccurs="3" maxOccurs="unbounded"/>
+            <xs:element name="zdjecie" type="zdjecieType" minOccurs="3" maxOccurs="unbounded"/>
+            <xs:element name="ankieta" type="ankietaType" minOccurs="1"/>
         </xs:sequence>
-        <xs:attribute name="moje_hobby" type="Moje_hobby"/>
+        <xs:attribute name="moje_hobby" type="Moje_hobbyType"/>
     </xs:complexType>
 
-    <xs:complexType name="jezyk">
+    <xs:complexType name="jezykType">
         <xs:sequence>
-            <xs:element name="rodzina" type="rodzina"/>
+            <xs:element name="rodzina" type="rodzinaType"/>
         </xs:sequence>
-        <xs:attribute name="id" type="Id" use="required"/>
+        <xs:attribute ref="id" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="link">
+    <xs:complexType name="linkType">
         <xs:attributeGroup ref="GrupaURL"/>
     </xs:complexType>
 
-    <xs:complexType name="zdjecie">
+    <xs:complexType name="zdjecieType">
         <xs:attributeGroup ref="GrupaURL"/>
         <xs:attribute name="rozszerzenie" type="Rozszerzenie" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="rodzina"><!-- Podelementy jezyk -->
+    <xs:complexType name="rodzinaType">
         <xs:sequence>
-            <xs:element name="grupa" type="grupa"/>
+            <xs:element name="grupa" type="grupaType"/>
         </xs:sequence>
         <xs:attribute name="nazwa_rodziny" type="xs:string" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="grupa">
+    <xs:complexType name="grupaType">
         <xs:sequence>
-            <xs:element name="zespol" type="zespol"/>
+            <xs:element name="zespol">
+                <xs:complexType mixed="true">
+                    <xs:all>
+                        <xs:element name="nazwa_jezyka" type="xs:string"/>
+                        <xs:element name="liczba_uzytkownikow">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="ilosc" type="xs:decimal"/>
+                                </xs:sequence>
+                                <xs:attribute name="liczba" type="Liczba" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="panstwa">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="panstwo" type="xs:string" minOccurs="1" maxOccurs="5"/>
+                                </xs:sequence>
+                                <xs:attribute name="liczba_panstw">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:int">
+                                            <xs:minInclusive value="1"/>
+                                            <xs:maxInclusive value="195"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="alfabet">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="alfabet_nazwa" type="xs:string"/>
+                                </xs:sequence>
+                                <xs:attribute name="ilosc_liter" type="xs:integer" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="nazwa_zespolu" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="nazwa_grupy" type="xs:string" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="zespol" mixed="true">
-        <xs:all>
-            <xs:element name="nazwa_jezyka" type="xs:string"/>
-            <xs:element name="liczba_uzytkownikow" type="liczba_uzytkownikow"/>
-            <xs:element name="alfabet" type="alfabet"/>
-        </xs:all>
-        <xs:attribute name="nazwa_zespolu" type="xs:string"/>
+    <xs:complexType name="ankietaType">
+        <xs:complexContent>
+            <xs:extension base="danePersonalne">
+                <xs:sequence>
+                    <xs:element name="nativeL" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="liczba_uzytkownikow">
+    <xs:complexType name="danePersonalne">
         <xs:sequence>
-            <xs:element name="ilosc" type="xs:decimal"/>
+            <xs:element name="imie" type="danperType"/>
+            <xs:element name="nazwisko" type="danperType"/>
+            <xs:element name="wiek" type="wiekType"/>
         </xs:sequence>
-        <xs:attribute name="liczba" type="Liczba" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="alfabet">
-        <xs:sequence>
-            <xs:element name="alfabet_nazwa" type="xs:string"/>
-        </xs:sequence>
-        <xs:attribute name="ilosc_liter" type="xs:integer" use="required"/>
-    </xs:complexType>
-
-    <xs:attributeGroup name="GrupaURL"><!-- scierzka -->
+    <xs:attributeGroup name="GrupaURL">
         <xs:attribute name="url" type="xs:string" use="required"/>
         <xs:attribute name="tresc" type="xs:string"/>
     </xs:attributeGroup>
 
-    <xs:simpleType name="Moje_hobby">
+    <xs:simpleType name="Moje_hobbyType">
         <xs:restriction base="xs:string">
-            <xs:maxLength value="20"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="40"/>
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="Id">
+    <xs:simpleType name="IdType">
         <xs:restriction base="xs:string">
             <xs:pattern value="[A-Z]{1}[0-9]*"/>
         </xs:restriction>
@@ -98,6 +134,21 @@
             <xs:enumeration value="JPEG"/>
             <xs:enumeration value="GIF"/>
             <xs:enumeration value="JPEG"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="danperType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]{1}[a-z]*"/>
+            <xs:minLength value="3"/>
+            <xs:maxLength value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="wiekType">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="18"/>
+            <xs:maxInclusive value="99"/>
         </xs:restriction>
     </xs:simpleType>
 
