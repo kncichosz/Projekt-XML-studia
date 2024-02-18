@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
 
     <xs:element name="jezyki_obce" type="jezyki_obceType"/>
     <xs:attribute name="id" type="IdType"/>
+    <xs:element name="link" type="linkType"/>
+    <xs:element name="zdjecie" type="zdjecieType"/>
 
     <xs:complexType name="jezyki_obceType">
         <xs:sequence>
             <xs:element name="jezyk" type="jezykType" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="link" type="linkType" minOccurs="3" maxOccurs="unbounded"/>
-            <xs:element name="zdjecie" type="zdjecieType" minOccurs="3" maxOccurs="unbounded"/>
+            <xs:element name="linki" type="linkiType" minOccurs="1"/>
+            <xs:element name="zdjecia" type="zdjeciaType" minOccurs="1"/>
             <xs:element name="ankieta" type="ankietaType" minOccurs="1"/>
         </xs:sequence>
-        <xs:attribute name="moje_hobby" type="Moje_hobbyType"/>
+        <xs:attribute name="moje_hobby" type="midiumStringType"/>
     </xs:complexType>
 
     <xs:complexType name="jezykType">
@@ -27,8 +29,9 @@
     </xs:complexType>
 
     <xs:complexType name="zdjecieType">
+        <xs:attribute name="scieszka" type="xs:string"/>
         <xs:attributeGroup ref="GrupaURL"/>
-        <xs:attribute name="rozszerzenie" type="Rozszerzenie" use="required"/>
+        <xs:attribute name="rozszerzenie" type="Rozszerzenie"/>
     </xs:complexType>
 
     <xs:complexType name="rodzinaType">
@@ -43,7 +46,7 @@
             <xs:element name="zespol">
                 <xs:complexType mixed="true">
                     <xs:all>
-                        <xs:element name="nazwa_jezyka" type="xs:string"/>
+                        <xs:element name="nazwa_jezyka" type="LanguageNameType"/>
                         <xs:element name="liczba_uzytkownikow">
                             <xs:complexType>
                                 <xs:sequence>
@@ -67,12 +70,32 @@
                                 </xs:attribute>
                             </xs:complexType>
                         </xs:element>
-                        <xs:element name="alfabet">
+                        <xs:element name="pismo">
                             <xs:complexType>
-                                <xs:sequence>
-                                    <xs:element name="alfabet_nazwa" type="xs:string"/>
-                                </xs:sequence>
-                                <xs:attribute name="ilosc_liter" type="xs:integer" use="required"/>
+                                <xs:choice>
+                                    <xs:element name="alfabet_nazwa">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="łaciński"/>
+                                                <xs:enumeration value="cyrylica"/>
+                                                <xs:enumeration value="grecki"/>
+                                                <xs:enumeration value="hebrajski"/>
+                                                <xs:enumeration value="arabski"/>
+                                                <xs:enumeration value="sanskrycki"/>
+                                                <xs:enumeration value="gruziński"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                    <xs:element name="system_znakow">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="hanzi"/>
+                                                <xs:enumeration value="kanji"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                </xs:choice>
+                                <xs:attribute name="ilosc_znakow" type="xs:integer" use="required"/>
                             </xs:complexType>
                         </xs:element>
                     </xs:all>
@@ -80,33 +103,62 @@
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
-        <xs:attribute name="nazwa_grupy" type="xs:string" use="required"/>
+        <xs:attribute name="nazwa_grupy" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="linkiType">
+        <xs:sequence>
+            <xs:element ref="link" minOccurs="3" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute ref="id" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="zdjeciaType">
+        <xs:sequence>
+            <xs:element ref="zdjecie" minOccurs="3" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute ref="id" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="ankietaType">
         <xs:complexContent>
             <xs:extension base="danePersonalne">
                 <xs:sequence>
-                    <xs:element name="nativeL" type="xs:string"/>
+                    <xs:element name="nativeL" type="LanguageNameType" minOccurs="1"/>
+                    <xs:element name="otherL" type="LanguageNameType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="goalL" type="LanguageNameType"  minOccurs="1" maxOccurs="unbounded"/>
                 </xs:sequence>
+                <xs:attribute ref="id" use="required"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="danePersonalne">
         <xs:sequence>
-            <xs:element name="imie" type="danperType"/>
-            <xs:element name="nazwisko" type="danperType"/>
-            <xs:element name="wiek" type="wiekType"/>
+            <xs:element name="imie" type="imieType"/>
+            <xs:element name="nazwisko">
+                <xs:simpleType>
+                    <xs:union memberTypes="midiumStringType imieType"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dataUrodzenia" type="xs:date"/>
+            <xs:element name="plec">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="female"/>
+                        <xs:enumeration value="male"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
     <xs:attributeGroup name="GrupaURL">
-        <xs:attribute name="url" type="xs:string" use="required"/>
+        <xs:attribute name="url" type="xs:anyURI"/>
         <xs:attribute name="tresc" type="xs:string"/>
     </xs:attributeGroup>
 
-    <xs:simpleType name="Moje_hobbyType">
+    <xs:simpleType name="midiumStringType">
         <xs:restriction base="xs:string">
             <xs:minLength value="1"/>
             <xs:maxLength value="40"/>
@@ -115,7 +167,7 @@
 
     <xs:simpleType name="IdType">
         <xs:restriction base="xs:string">
-            <xs:pattern value="[A-Z]{1}[0-9]*"/>
+            <xs:pattern value="[AJLZ]{1}[0-9]?"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -137,18 +189,33 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="danperType">
+    <xs:simpleType name="imieType">
         <xs:restriction base="xs:string">
             <xs:pattern value="[A-Z]{1}[a-z]*"/>
-            <xs:minLength value="3"/>
-            <xs:maxLength value="30"/>
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="wiekType">
-        <xs:restriction base="xs:int">
-            <xs:minInclusive value="18"/>
-            <xs:maxInclusive value="99"/>
+    <xs:simpleType name="LanguageNameType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Polski"/>
+            <xs:enumeration value="Angielski"/>
+            <xs:enumeration value="Hiszpański"/>
+            <xs:enumeration value="Niemiecki"/>
+            <xs:enumeration value="Rosyjski"/>
+            <xs:enumeration value="Mandaryński"/>
+            <xs:enumeration value="Francuski"/>
+            <xs:enumeration value="Arabski"/>
+            <xs:enumeration value="Hindi"/>
+            <xs:enumeration value="Portugalski"/>
+            <xs:enumeration value="Japoński"/>
+            <xs:enumeration value="Koreański"/>
+            <xs:enumeration value="Włoski"/>
+            <xs:enumeration value="Hebrajski"/>
+            <xs:enumeration value="Grecki"/>
+            <xs:enumeration value="Gruziński"/>
+            <xs:enumeration value="Holenderski"/>
+            <xs:enumeration value="Szwecki"/>
+            <xs:enumeration value="Norweski"/>
         </xs:restriction>
     </xs:simpleType>
 

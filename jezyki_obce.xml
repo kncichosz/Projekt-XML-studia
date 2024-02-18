@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jezyki_obce 
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="jezyki_obceSchema.xsd">
+xsi:noNamespaceSchemaLocation="jezyki_obceSchema.xsd" moje_hobby="Języki obce">
 
-    <jezyk id="G1">
+    <jezyk id="J1">
         <rodzina nazwa_rodziny="indoeuropejski">
             <grupa nazwa_grupy="germański">
                 <zespol nazwa_zespolu="zachodniogermański">
@@ -11,31 +11,22 @@ xsi:noNamespaceSchemaLocation="jezyki_obceSchema.xsd">
                     <liczba_uzytkownikow liczba="miliard">
                         <ilosc>1.35</ilosc>
                     </liczba_uzytkownikow>
-                    <alfabet ilosc_liter="26">
+                    <panstwa liczba_panstw="67">
+                        <panstwo>Zjednoczone Królwstwo</panstwo>
+                        <panstwo>USA</panstwo>
+                        <panstwo>Kanada</panstwo>
+                        <panstwo>Australia</panstwo>
+                        <panstwo>Nowa Zelandia</panstwo>
+                    </panstwa>
+                    <pismo ilosc_znakow="26">
                         <alfabet_nazwa>łaciński</alfabet_nazwa>
-                    </alfabet>
-                    <linki>
-                        <link url="https://dictionary.cambridge.org/pl/">
-                            <tytul_linku>Słownik języka angielskiego</tytul_linku>
-                        </link>
-                        <link url="https://pl.wikipedia.org/wiki/J%C4%99zyk_angielski/">
-                            <tytul_linku>Wikipedia: Język angielski</tytul_linku>
-                        </link>
-                        <link url="https://www.empik.com/ksiazki/nauka-jezykow/jezyk-angielski,317901,s/">
-                            <tytul_linku>Empik: książki do nauki języka angielskiego</tytul_linku>
-                        </link>
-                    </linki>
-                    <zdjecia>
-                        <zdjecie url="img/flaga_1.png">Flaga Zjednoczonego Królestwa</zdjecie>
-                        <zdjecie url="img/mapa_1.png">Mapa języka angielskiego</zdjecie>
-                        <zdjecie url="img/alfabet_1.jpg">Alfabet angielski</zdjecie>
-                    </zdjecia>
+                    </pismo>
                 </zespol>
             </grupa>
         </rodzina>
     </jezyk>
 
-    <jezyk id="R1">
+    <jezyk id="J2">
         <rodzina nazwa_rodziny="indoeuropejski">
             <grupa nazwa_grupy="romański">
                 <zespol nazwa_zespolu="zachodnioromański">
@@ -43,31 +34,22 @@ xsi:noNamespaceSchemaLocation="jezyki_obceSchema.xsd">
                     <liczba_uzytkownikow liczba="milion">
                         <ilosc>595</ilosc>
                     </liczba_uzytkownikow>
-                    <alfabet ilosc_liter="27">
+                    <panstwa liczba_panstw="20">
+                        <panstwo>Hiszpania</panstwo>
+                        <panstwo>Meksyk</panstwo>
+                        <panstwo>Argentyna</panstwo>
+                        <panstwo>Czile</panstwo>
+                        <panstwo>Kolumbia</panstwo>
+                    </panstwa>
+                    <pismo ilosc_znakow="27">
                         <alfabet_nazwa>łaciński</alfabet_nazwa>
-                    </alfabet>
-                    <linki>
-                        <link url="https://ling.pl/slownik/hiszpa%C5%84sko-polski">
-                            <tytul_linku>Słownik języka hiszpańskiego</tytul_linku>
-                        </link>
-                        <link url="https://pl.wikipedia.org/wiki/J%C4%99zyk_hiszpa%C5%84ski">
-                            <tytul_linku>Wikipedia: Język hiszpański</tytul_linku>    
-                        </link>
-                        <link  url="https://www.empik.com/ksiazki/nauka-jezykow/jezyk-hiszpanski,317903,s/">
-                            <tytul_linku>Empik: książki do nauki języka hiszpańskiego</tytul_linku>
-                        </link>
-                    </linki>
-                    <zdjecia>
-                        <zdjecie url="img/flaga_2.png">Flaga Hiszpanii</zdjecie>
-                        <zdjecie url="img/mapa_2.png">Mapa języka hiszpańskiego</zdjecie>
-                        <zdjecie url="img/alfabet_2.jpg">Alfabet: hiszpański</zdjecie>
-                    </zdjecia>
+                    </pismo>
                 </zespol>
             </grupa>
         </rodzina>
     </jezyk>
 
-    <jezyk id="S1">
+    <jezyk id="J3">
         <rodzina nazwa_rodziny="indoeuropejski">
             <grupa nazwa_grupy="słowiański">
                 <zespol nazwa_zespolu="wschodniosłowiański">
@@ -75,28 +57,60 @@ xsi:noNamespaceSchemaLocation="jezyki_obceSchema.xsd">
                     <liczba_uzytkownikow liczba="milion">
                         <ilosc>255</ilosc>
                     </liczba_uzytkownikow>
-                    <alfabet ilosc_liter="33">
+                    <panstwa liczba_panstw="4">
+                        <panstwo>Rosja</panstwo>
+                        <panstwo>Białoruś</panstwo>
+                        <panstwo>Kirgistan</panstwo>
+                        <panstwo>Kazahstan</panstwo>
+                    </panstwa>
+                    <pismo ilosc_znakow="33">
                         <alfabet_nazwa>cyrylica</alfabet_nazwa>
-                    </alfabet>
-                    <linki>
-                        <link url="https://ling.pl/slownik/hiszpa%C5%84sko-polski">
-                            <tytul_linku>Słownik języka rosyjskiego</tytul_linku>
-                        </link>
-                        <link url="https://pl.wikipedia.org/wiki/J%C4%99zyk_hiszpa%C5%84ski">
-                            <tytul_linku>Wikipedia: Język rosyjski</tytul_linku>
-                        </link>
-                        <link url="https://www.empik.com/ksiazki/nauka-jezykow/jezyk-hiszpanski,317903,s/">
-                            <tytul_linku>Empik: książki do nauki języka rosyjskiego</tytul_linku>
-                        </link>
-                    </linki>
-                    <zdjecia>
-                        <zdjecie url="img/flaga_3.png">Flaga Rosji</zdjecie>
-                        <zdjecie url="img/mapa_3.png">Mapa języka rosyjskiego</zdjecie>
-                        <zdjecie url="img/alfabet_3.jpg">Alfabet: rosyjski</zdjecie>
-                    </zdjecia>
+                    </pismo>
                 </zespol>
             </grupa>
         </rodzina>
     </jezyk>
+
+    <jezyk id="J4">
+        <rodzina nazwa_rodziny="japońskie">
+            <grupa>
+                <zespol>
+                    <nazwa_jezyka>Japoński</nazwa_jezyka>
+                    <liczba_uzytkownikow liczba="milion">
+                        <ilosc>130</ilosc>
+                    </liczba_uzytkownikow>
+                    <panstwa liczba_panstw="1">
+                        <panstwo>Japonia</panstwo>
+                    </panstwa>
+                    <pismo ilosc_znakow="10000">
+                        <system_znakow>kanji</system_znakow>
+                    </pismo>
+                </zespol>
+            </grupa>
+        </rodzina>
+    </jezyk>
+
+    <linki id="L">
+        <link url="https://dictionary.cambridge.org/pl/" tresc="Słownik angielsko-polski"></link>
+        <link url="https://ling.pl/slownik/hiszpa%C5%84sko-polski" tresc="Słownik hiszpańsko-polski"></link>
+        <link url="https://ling.pl/slownik/rosyjsko-polski" tresc="Słownik rosyjsko-polski"></link>
+        <link url="https://pl.pons.com/t%C5%82umaczenie-tekstu/japo%C5%84ski-polski" tresc="Słownik japońsko-polski"></link>
+    </linki>
+
+    <zdjecia id="Z">
+        <zdjecie scieszka="img/flaga_1.png" rozszerzenie="PNG" tresc="Flaga Zjednoczonego Królestwa"></zdjecie>
+        <zdjecie scieszka="img/flaga_2.png" rozszerzenie="PNG" tresc="Flaga Hiszpanii"></zdjecie>
+        <zdjecie scieszka="img/flaga_3.jpg" rozszerzenie="JPG" tresc="Flaga Rosji"></zdjecie>
+        <zdjecie scieszka="img/flaga_4.jpg" rozszerzenie="JPG" tresc="Flaga Japoni"></zdjecie>
+    </zdjecia>
+
+    <ankieta id="A">
+        <imie>Jan</imie>
+        <nazwisko>Kowalski</nazwisko>
+        <dataUrodzenia>1980-01-01</dataUrodzenia>
+        <plec>male</plec>
+        <nativeL>Polski</nativeL>
+        <goalL>Angielski</goalL>
+    </ankieta>
 
 </jezyki_obce>
